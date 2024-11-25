@@ -7,19 +7,24 @@ module Shift_Register_4_beh (
 	 MSB_in, LSB_in, // Serial inputs
 	 CLK, Clear_b // Clock and Clear
 	);
-	
 	always @ ( posedge CLK, negedge Clear_b) 
 	if (Clear_b == 0) 
 		A_par <= 4'b0000;
 	else
-	 	case ({s1, s0})
+	 	// case ({s1, s0})
+		//  	2'b00: A_par <= A_par; // No change
+		// 	2'b01: A_par <= {MSB_in, A_par[3: 1]}; // Shift right
+		// 	2'b10: A_par <= {A_par[2: 0], LSB_in}; // Shift left
+		// 	2'b11: A_par <= I_par; // Parallel load of input
+	    // endcase
+
+		case ({s1, s0})
 		 	2'b00: A_par <= A_par; // No change
 			2'b01: A_par <= {MSB_in, A_par[3: 1]}; // Shift right
 			2'b10: A_par <= {A_par[2: 0], LSB_in}; // Shift left
 			2'b11: A_par <= I_par; // Parallel load of input
 	    endcase
 endmodule
-
 
 module t_Shift_Register_4_beh;
 	wire [3:0] A_par;
@@ -30,7 +35,7 @@ module t_Shift_Register_4_beh;
 	assign state= {s1,s0};
 	initial 
 		begin
-		   $dumpfile("t_Shift_Register_4_beh.vcd");
+		   $dumpfile("t.vcd");
 	       $dumpvars(0, t_Shift_Register_4_beh);
 		end
 	initial #100 $finish;
