@@ -23,9 +23,11 @@ endmodule
 
 module t_Shift_Register_4_beh;
 	wire [3:0] A_par;
+	wire[1:0]state;
 	reg [3:0] I_par;
  	reg s1,s0, MSB_in, LSB_in, CLK, Clear_b;
 	Shift_Register_4_beh UR (A_par,  I_par, s1, s0,	 MSB_in, LSB_in,  CLK, Clear_b);
+	assign state= {s1,s0};
 	initial 
 		begin
 		   $dumpfile("t_Shift_Register_4_beh.vcd");
@@ -36,11 +38,10 @@ module t_Shift_Register_4_beh;
 	  begin 
 	  	  Clear_b = 1;
 	      CLK = 0;
-	      
 	      #5 Clear_b = 0;
 	      #7 Clear_b = 1;
 	      repeat (16)
-	        #5 CLK = ~CLK; 
+	        #5 CLK = ~CLK;
       end
 	initial 
 	 begin
