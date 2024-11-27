@@ -13,7 +13,7 @@ module Lab_Test6_Down(output A3, A2, A1, A0, input CLK, Reset);
     Comp_D_flip_flop F0 (A0, ~CLK, Reset);   // LSB flip-flop with inverted clock
     Comp_D_flip_flop F1 (A1, ~A0, Reset);    // Triggered by ~A0
     Comp_D_flip_flop F2 (A2, ~A1, Reset);    // Triggered by ~A1
-    Comp_D_flip_flop F3 (A3, ~A2, Reset);     // Triggered by A2
+    Comp_D_flip_flop F3 (A3, ~A2, Reset);     // Triggered by ~A2
 endmodule
 
 module Comp_D_flip_flop (output reg Q, input CLK, Reset);
